@@ -1,0 +1,72 @@
+---
+title: "My first really great amazing blog post, I just cannot wait to post it yay"
+subtitle: "A cool post"
+date: "2024-10-12"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+```
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>$title$</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col mt-4 mx-1 mx-md-5 mb-0">
+                <h1>$title$</h1>
+            </div>
+        </div>
+        $if(subtitle)$
+        <div class="row">
+            <div class="col mx-1 mx-md-5 mt-0 mb-3">
+                <h2>$subtitle$</h2>
+                <div class="m-0"><hr style="width:50%; min-width: 250px;"></hr></div>
+            </div>
+        </div>
+        $endif$
+        <div class="row mx-1 mx-md-5 mt-0">
+            <div class="col p-0 m-0">
+              $body$
+            </div>
+        </div>
+        $for(posts)$
+        <div class="row mx-1 mx-md-5 mt-0">
+            <div class="col p-0 m-0">
+                <h4><a href="$posts.link$">$posts.title$</a></h4>
+                <p>$posts.date$</p>
+            </div>
+        </div>
+        $endfor$
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  </body>
+</html>
+```
