@@ -1,4 +1,4 @@
 ---
-title: "Ciao"
+title: "Eleven Dollar Bills"
 subtitle: A Blog by [Sean Kross](https://www.seankross.com/)
 ---
