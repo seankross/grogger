@@ -18,11 +18,13 @@ is_older <- function(file1, file2) {
 #' @param output_dir Path to the directory where the output files will be
 #' created.
 #' @importFrom here here
-#' @importFrom fs dir_ls dir_create path
-#' @importFrom rmarkdown render pandoc_available
+#' @importFrom fs dir_ls dir_create path file_info
+#' @importFrom rmarkdown render pandoc_available yaml_front_matter html_document
+#' @importFrom cli cli_alert_info cli_alert_success
+#' @export
 swing <- function(index = here("index.Rmd"),
-                    posts = here("posts"),
-                    output_dir = here("docs")) {
+                  posts = here("posts"),
+                  output_dir = here("docs")) {
   post_rmds <- dir_ls(posts, regexp = "*.[R|r]md$") %>% sort()
 
   ordered_posts <- post_rmds %>%
@@ -35,30 +37,54 @@ swing <- function(index = here("index.Rmd"),
     (function(x) sub("\\.[^.]*$", "", basename(x)))()
 
   post_htmls <- path(output_dir, post_dirs, "index.html") %>% sort()
-  temp_post_htmls <- path(posts, post_dirs) %>% paste0(".html") %>% sort()
+  temp_post_htmls <- path(posts, post_dirs) %>%
+    paste0(".html") %>%
+    sort()
 
-  posts_were_built <- FALSE
-  for (i in seq_along(post_rmds)) {
-    if (!file.exists(post_htmls[i]) || is_older(post_htmls[i], post_rmds[i])) {
-      posts_were_built <- TRUE # sloppy but it works
-      fs::dir_create(dirname(post_htmls[i]), recurse = TRUE)
-      render(post_rmds[i], html_document(
-        theme = NULL,
-        template = "templates/post.html" %>% here(),
-        self_contained = rmarkdown::pandoc_available("2.8"))
+  posts_to_build <- (!file.exists(post_htmls[seq_along(post_rmds)]) |
+    seq_along(post_rmds) %>% sapply(\(x) is_older(post_htmls[x], post_rmds[x]))) %>%
+    which()
+
+  nav_yaml <- yaml_front_matter(index)[["nav"]] %>%
+    lapply(function(x) {
+      paste0(
+        "  - label: ", x$label, "\n",
+        "    ", "url: ", x$url
       )
+    }) %>%
+    unlist() %>%
+    paste0(collapse = "\n") %>%
+    (function(x) paste0("nav:\n", x))()
 
-      delete_then_move(temp_post_htmls[i], post_htmls[i])
-    }
+  nav_metadata <- tempfile(fileext = ".yaml")
+  writeLines(nav_yaml, nav_metadata)
+
+  for (i in posts_to_build) {
+    fs::dir_create(dirname(post_htmls[i]), recurse = TRUE)
+    render(post_rmds[i], html_document(
+      theme = NULL,
+      template = "templates/post.html" %>% here(),
+      pandoc_args = c("--metadata-file", nav_metadata),
+      self_contained = pandoc_available("2.8"),
+      md_extensions = "-autolink_bare_uris"), quiet = TRUE)
+    delete_then_move(temp_post_htmls[i], post_htmls[i])
+  }
+
+  if (length(posts_to_build) < 1) {
+    cli_alert_info("No posts were built.")
+  } else {
+    cli_alert_success("Built {length(posts_to_build)} {ifelse(length(posts_to_build) == 1, 'post', 'posts')}.")
   }
 
   posts_yaml <- post_rmds %>%
     lapply(yaml_front_matter) %>%
     (function(x) x[order(sapply(x, function(y) y$date), decreasing = TRUE)])() %>%
-    lapply(function(x){
-      paste0("  - title: ", x$title, "\n",
-             "    ", "date: ", x$date, "\n",
-             "    ", "link:")
+    lapply(function(x) {
+      paste0(
+        "  - title: ", x$title, "\n",
+        "    ", "date: ", x$date, "\n",
+        "    ", "link:"
+      )
     }) %>%
     unname() %>%
     unlist() %>%
@@ -72,12 +98,17 @@ swing <- function(index = here("index.Rmd"),
   temp_home_html <- sub("\\.[^.]*$", "", index) %>% paste0(".html")
   home_html <- path(output_dir, "index.html")
 
-  if(!file.exists(home_html) || is_older(home_html, index) || posts_were_built) {
+  if (!file.exists(home_html) || is_older(home_html, index) || length(posts_to_build) > 0) {
     render(index, html_document(
       theme = NULL,
       template = "templates/index.html",
-      pandoc_args = c("--metadata-file", pandoc_metadata)))
+      pandoc_args = c("--metadata-file", pandoc_metadata),
+      self_contained = pandoc_available("2.8"),
+      md_extensions = "-autolink_bare_uris"), quiet = TRUE)
 
     delete_then_move(temp_home_html, home_html)
+    cli_alert_success("Homepage was built.")
+  } else {
+    cli_alert_info("Homepage was not built.")
   }
 }
