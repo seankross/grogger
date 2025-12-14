@@ -7,6 +7,7 @@
 swing(
   index = here("index.Rmd"),
   posts = here("posts"),
+  tags = TRUE,
   output_dir = here("docs")
 )
 }
@@ -14,6 +15,8 @@ swing(
 \item{index}{Path to the \code{index.Rmd} file.}
 
 \item{posts}{Path to the directory that contains the blog posts.}
+
+\item{tags}{Create a page that collates posts according to tags?}
 
 \item{output_dir}{Path to the directory where the output files will be
 created.}
