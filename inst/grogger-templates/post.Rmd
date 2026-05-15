@@ -1,0 +1,7 @@
+---
+title: "New Post"
+subtitle: "New Subtitle"
+date: "2030-01-01"
+tags: ["R", "Writing"]
+---
+

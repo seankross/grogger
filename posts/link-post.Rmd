@@ -1,0 +1,7 @@
+---
+title: "Links!"
+date: "2025-10-13"
+tags: ["cool", "links"]
+---
+
+[My link](https://www.example.com)

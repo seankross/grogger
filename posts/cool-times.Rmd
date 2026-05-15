@@ -2,6 +2,7 @@
 title: "Untitled"
 subtitle: "very nice"
 date: "2024-10-13"
+tags: ["cool", "wow"]
 ---
 
 ```{r setup, include=FALSE}

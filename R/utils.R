@@ -11,4 +11,4 @@ is_older <- function(file1, file2) {
   file_info(file1)$modification_time < file_info(file2)$modification_time
 }
 
-strip_ext <- function(x) sub("\\.[^.]*$", "", basename(x))
+strip_ext <- function(x) sub("\\.[^.]*$", "", x)

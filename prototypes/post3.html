@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CSS Grid vs Flexbox: When to Use Which - Scan Dot Code</title>
+
+    <meta name="description" content="A practical guide to deciding between CSS Grid and Flexbox for modern layout design.">
+    <meta property="og:title" content="CSS Grid vs Flexbox: When to Use Which">
+    <meta property="og:description" content="A practical guide to deciding between CSS Grid and Flexbox for modern layout design.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://example.com/posts/css-grid">
+    <meta property="og:image" content="https://example.com/images/css-grid-vs-flexbox.png">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+    <style>
+      .my-content {
+        max-width: 700px;
+      }
+      article img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 0.5rem;
+        margin: 1.5rem 0;
+      }
+      article p {
+        margin-bottom: 1.25rem;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="container my-content mx-auto">
+      <header class="row">
+        <div class="col mt-4 mb-0 p-1 ps-3 pe-1">
+          <h1 class="fw-bold"><a href="/" class="text-decoration-none text-dark">Scan Dot Code</a></h1>
+        </div>
+      </header>
+
+      <section class="row border-bottom">
+        <div class="col mt-0 mb-3 p-1 ps-3 pe-1">
+          <h2 class="text-muted">A Blog by <a href="https://seankross.com" class="text-decoration-none">Sean Kross</a></h2>
+          <nav class="mt-3">
+            <a href="/Users/skross/developer/grogger/prototypes/index2.html" class="me-3 text-decoration-none">Home</a>
+            <a href="/tags" class="me-3 text-decoration-none">Tags</a>
+            <a href="/links" class="me-3 text-decoration-none">Links</a>
+            <a href="/about" class="text-decoration-none">About</a>
+          </nav>
+        </div>
+      </section>
+
+      <article class="row mt-5 ps-3 pe-1">
+        <div class="col p-0">
+          <h1 class="fw-semibold mb-1">CSS Grid vs Flexbox: When to Use Which</h1>
+          <p class="text-body-secondary mb-4">
+            <time datetime="2025-09-05">September 5, 2025</time> | Tags: <span class="text-muted">CSS, Layout, Frontend</span>
+          </p>
+
+          <p>CSS Grid and Flexbox are two of the most powerful layout systems available in modern CSS. They solve many of the same problems but in slightly different ways. Understanding their strengths helps you choose the right one for each situation.</p>
+
+          <h2>When to Use Flexbox</h2>
+          <p>Flexbox is best for one-dimensional layouts — think of a row or column of elements where space needs to be distributed evenly. Navigation bars, toolbars, or alignment within a card component are good examples.</p>
+
+          <h2>When to Use Grid</h2>
+          <p>Grid is better for two-dimensional layouts — full-page layouts, dashboards, or image galleries where both rows and columns need to be managed together.</p>
+
+          <img src="https://example.com/images/grid-example.png" alt="CSS Grid layout example">
+
+          <p>In short: use Flexbox for flow, Grid for structure. They’re not mutually exclusive — most great UIs use both together.</p>
+        </div>
+      </article>
+
+      <footer class="row mt-5 ps-3 pe-1">
+        <div class="col p-0 border-top pt-3">
+          <a href="/" class="text-decoration-none">&larr; Back to Home</a>
+        </div>
+      </footer>
+
+      <div class="row pb-5"></div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

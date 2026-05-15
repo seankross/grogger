@@ -2,6 +2,7 @@
 title: "My first really great amazing blog post, I just cannot wait to post it yay"
 subtitle: "A cool post"
 date: "2024-10-12"
+tags: ["cool", "fun"]
 ---
 
 ```{r setup, include=FALSE}

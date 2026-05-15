@@ -1,14 +1,15 @@
 ---
-title: "Scan Dot Code"
-subtitle: A Blog by [Sean Kross](https://www.seankross.com/)
+title: "Grogger"
+subtitle: A Blog
 nav:
   - label: Home
     url: "/"
+    exindex: true
   - label: Tags
     url: "/tags"
   - label: Links
     url: "/links"
   - label: About
-    url: "https://www.seankross.com"
+    url: "https://example.com"
 exclude_tags: ["links"]
 ---
